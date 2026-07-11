@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookmyshow-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bookmyshow
+  template:
+    metadata:
+      labels:
+        app: bookmyshow
+    spec:
+      containers:
+      - name: bookmyshow
+        image: 755687317354.dkr.ecr.ap-south-1.amazonaws.com/bookmyshow-app:v1
+        ports:
+        - containerPort: 3000
