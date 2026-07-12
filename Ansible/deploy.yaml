@@ -1,0 +1,23 @@
+---
+- name: Deploy BookMyShow to Kubernetes
+  hosts: local
+  become: false
+
+  tasks:
+
+    - name: Apply Kubernetes Deployment
+      command: kubectl apply -f k8s/Deployment.yaml
+      args:
+        chdir: /var/lib/jenkins/workspace/BMS-CICD
+
+    - name: Apply Kubernetes Service
+      command: kubectl apply -f k8s/service.yaml
+      args:
+        chdir: /var/lib/jenkins/workspace/BMS-CICD
+
+    - name: Check Pods
+      command: kubectl get pods
+      register: pod_output
+
+    - debug:
+        var: pod_output.stdout
